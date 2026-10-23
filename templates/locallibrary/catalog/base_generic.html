@@ -3,13 +3,10 @@
 <head>
 {% block title %}<title>Local Library</title>{% endblock %}
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link 
-rel="stylesheet"
-href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 </head>
@@ -30,11 +27,9 @@ href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <li>User: {{ user.get_username }}</li>
 <li><a href="{% url 'my-borrowed' %}">My borrowed</a></li>
 <li>
-<form id="logout-form" method="post" action="{% url 'logout' %}"
-style="display:inline;">
+<form id="logout-form" method="post" action="{% url 'logout' %}" style="display:inline;">
 {% csrf_token %}
-<button type="submit" class="btn btn-link"
-style="padding:0; margin:0;">Logout</button>
+<button type="submit" class="btn btn-link" style="padding: 0; margin: 0;">Logout</button>
 </form>
 </li>
 </ul>
@@ -44,18 +39,13 @@ style="padding:0; margin:0;">Logout</button>
 <ul class="sidebar-nav">
 <li>Staff</li>
 <li><a href="{% url 'all-borrowed' %}">All borrowed</a></li>
-
 {% if perms.catalog.add_author %}
 <li><a href="{% url 'author-create' %}">Create author</a></li>
 {% endif %}
-
-{% if perms.catalog.change_author or perms.catalog.delete_author %}
-{% if perms.catalog.change_author %}
-<li><a href="{% url 'author-update' author.id %}">Update author</a></li>
+{% if perms.catalog.add_book %}
+<li><a href="{% url 'book-create' %}">Create book</a></li>
 {% endif %}
-{% if not author.book_set.all and perms.catalog.delete_author %}
-<li><a href="{% url 'author-delete' author.id %}">Delete author</a></li>
-{% endif %}
+</ul>
 {% endif %}
 
 {% else %}
@@ -63,9 +53,7 @@ style="padding:0; margin:0;">Logout</button>
 <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
 </ul>
 {% endif %}
-
 {{ block.super }}
-
 {% endblock %}
 </div>
 
@@ -90,7 +78,6 @@ Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
 {% endif %}
 {% endblock %}
 </div>
-
 </div>
 </div>
 </body>
