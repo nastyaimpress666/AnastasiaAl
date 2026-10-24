@@ -16,8 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog.apps.CatalogConfig',
+    'studio',      # Приложение Design.pro
+    'catalog',     # Приложение LocalLibrary
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -29,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'locallibrary.urls'
+ROOT_URLCONF = 'design_pro.urls'
 
 TEMPLATES = [
     {
