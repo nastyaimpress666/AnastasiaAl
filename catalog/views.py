@@ -23,7 +23,7 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
-    return render(request, 'index.html', context={
+    return render(request, 'locallibrary/catalog/index.html', context={
         'num_books': num_books,
         'num_instances': num_instances,
         'num_instances_available': num_instances_available,
@@ -37,31 +37,38 @@ def index(request):
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 2
+    template_name = 'locallibrary/catalog/book_list.html'
 
 class BookDetailView(generic.DetailView):
     model = Book
+    template_name  'locallibrary/catalog/book_detail.html'
 
 class AuthorListView(generic.ListView):
     model = Author
     paginate_by = 2
+    template_name 'locallibrary/catalog/author_list.'
 
 class AuthorDetailView(generic.DetailView):
     model = Author
+    template_name = 'locallibrary/catalog/author_detail.html'
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name = 'catalog/bookinstance_list_borrowed_user.html'
+    template_name = 'locallibrary/catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
+
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        return render(request, 'locallibrary/catalog/index.html'
 
 class LoanedBooksByAllListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name = 'catalog/bookinstance_list_borrowed_all.html'
+    template_name = 'locallibrary/catalog/bookinstance_list_borrowed_all.html'
     paginate_by = 2
 
-    def get_queryset(self):
+
+ def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 @login_required
@@ -89,16 +96,19 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
     initial = {'date_of_death': '11/11/2023'}
     permission_required = 'catalog.add_author'
+    template_name = 'locallibrary/catalog/author_form.html'
 
 class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
     fields = '__all__'
     permission_required = 'catalog.change_author'
+    template_name = 'locallibrary/catalog/author_form.html'
 
 class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
     permission_required = 'catalog.delete_author'
+    template_name = 'locallibrary/catalog/author_confirm_delete.html'
 
     def form_valid(self, form):
         try:
@@ -113,13 +123,16 @@ class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre']
     permission_required = 'catalog.add_book'
+    template_name = 'locallibrary/catalog/book_form.html'
 
 class BookUpdate(PermissionRequiredMixin, UpdateView):
     model = Book
     fields = '__all__'
     permission_required = 'catalog.change_book'
+    template_name = 'locallibrary/catalog/book_form.html'
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.delete_book'
+    template_name = 'locallibrary/catalog/book_confirm_delete.html'

@@ -16,9 +16,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'studio',      # Приложение Design.pro
-    'catalog',     # Приложение LocalLibrary
+    'studio',
+    'catalog',
 ]
+
 
 
 MIDDLEWARE = [
@@ -32,12 +33,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'design_pro.urls'
-
+WSGI_APPLICATION = 'design_pro.wsgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -48,7 +49,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'locallibrary.wsgi.application'
+WSGI_APPLICATION = 'design_pro.wsgi.application'
 
 DATABASES = {
     'default': {
